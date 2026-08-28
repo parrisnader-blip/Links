@@ -1,0 +1,326 @@
+<title>Ambition Electrical</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #eef1f2;
+    --grid-line: #ccd4d8;
+    --surface: #ffffff;
+    --surface-2: #e3e9ec;
+    --text: #12161a;
+    --muted: #55626c;
+    --accent: #b56d00;
+    --accent-ink: #ffffff;
+    --border: #d7dee1;
+    --shadow: 220 20% 30%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10151a;
+      --grid-line: #253039;
+      --surface: #1a2029;
+      --surface-2: #232b34;
+      --text: #edf2f5;
+      --muted: #98a5b0;
+      --accent: #f2a30f;
+      --accent-ink: #17130a;
+      --border: #2b3540;
+      --shadow: 220 60% 2%;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #10151a;
+    --grid-line: #253039;
+    --surface: #1a2029;
+    --surface-2: #232b34;
+    --text: #edf2f5;
+    --muted: #98a5b0;
+    --accent: #f2a30f;
+    --accent-ink: #17130a;
+    --border: #2b3540;
+    --shadow: 220 60% 2%;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 64px;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* faint circuit-trace field behind the card */
+  .circuit-field {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .circuit-field svg { width: 100%; height: 100%; }
+  .circuit-field line, .circuit-field path {
+    stroke: var(--grid-line);
+    stroke-width: 1;
+    fill: none;
+  }
+  .circuit-field circle {
+    fill: var(--grid-line);
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 400px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 28px 28px;
+    box-shadow: 0 1px 2px hsl(var(--shadow) / 0.06), 0 18px 40px -20px hsl(var(--shadow) / 0.35);
+  }
+
+  .mark {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 18px;
+    display: block;
+  }
+  .mark path { fill: var(--accent); }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: "Oswald", ui-sans-serif, sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+
+  .tagline {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14.5px;
+    margin: 0 0 26px;
+  }
+
+  .call {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 22px;
+    transition: filter 0.15s ease, transform 0.15s ease;
+  }
+  .call:hover { filter: brightness(1.06); }
+  .call:active { transform: scale(0.99); }
+  .call:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .call svg { width: 20px; height: 20px; flex: none; }
+  .call svg path { stroke: currentColor; }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .link-row:hover { border-color: var(--accent); }
+  .link-row:active { transform: scale(0.99); }
+  .link-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .icon {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    border-radius: 9px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon svg { width: 19px; height: 19px; }
+  .icon svg path, .icon svg circle, .icon svg rect { stroke: var(--accent); }
+
+  .link-text { flex: 1; min-width: 0; }
+  .link-label {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.2;
+  }
+  .link-sub {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .go {
+    flex: none;
+    color: var(--muted);
+    width: 16px;
+    height: 16px;
+  }
+  .go path { stroke: var(--muted); }
+
+  footer {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .call, .link-row { transition: none; }
+  }
+</style>
+
+<div class="circuit-field" aria-hidden="true">
+  <svg viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice">
+    <path d="M0 120 H90 V60 H400" />
+    <path d="M0 260 H60 V340 H180 V420" />
+    <path d="M400 180 H320 V240 H240" />
+    <path d="M0 520 H140 V460 H260 V520 H400" />
+    <path d="M0 700 H100 V780 H0" />
+    <path d="M400 620 H300 V700 H340 V820" />
+    <path d="M180 900 V820 H260 V760" />
+    <circle cx="90" cy="120" r="4" />
+    <circle cx="180" cy="420" r="4" />
+    <circle cx="240" cy="240" r="4" />
+    <circle cx="260" cy="520" r="4" />
+    <circle cx="340" cy="820" r="4" />
+    <circle cx="260" cy="760" r="4" />
+  </svg>
+</div>
+
+<main class="card">
+  <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M13 2 3 14h7l-1 8 11-14h-7l1-6z"/>
+  </svg>
+
+  <p class="eyebrow">Electrical Services</p>
+  <h1>Ambition&nbsp;Electrical</h1>
+  <p class="tagline">Save this page or send it on — one tap for a call, quote, or message.</p>
+
+  <a class="call" href="tel:+61432746387">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 2 6a2 2 0 0 1 2-2z"/>
+    </svg>
+    0432 746 387
+  </a>
+
+  <nav class="links">
+    <a class="link-row" href="http://ambitionelectrical.com/" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <div class="link-label">Website</div>
+        <div class="link-sub">ambitionelectrical.com</div>
+      </span>
+      <svg class="go" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+
+    <a class="link-row" href="https://wa.me/61432746387" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 20l1.3-4A8 8 0 1 1 9 19l-5 1z"/>
+          <path d="M9 11c0 2.5 1.5 4 4 4"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <div class="link-label">WhatsApp</div>
+        <div class="link-sub">Message the team directly</div>
+      </span>
+      <svg class="go" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+
+    <a class="link-row" href="https://www.instagram.com/ambitionelectrical/" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="16.6" cy="7.4" r="0.9" fill="var(--accent)" stroke="none"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <div class="link-label">Instagram</div>
+        <div class="link-sub">@ambitionelectrical</div>
+      </span>
+      <svg class="go" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+
+    <a class="link-row" href="https://www.facebook.com/Ambitionelectrical/" target="_blank" rel="noopener">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+          <path d="M13.2 20v-6.2h2l.3-2.5h-2.3V9.6c0-.7.2-1.2 1.2-1.2h1.3V6.1c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.2-3.2 3.3v1.9H8.5v2.5h2.1V20"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <div class="link-label">Facebook</div>
+        <div class="link-sub">Ambition Electrical</div>
+      </span>
+      <svg class="go" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+  </nav>
+
+  <footer>Ambition Electrical &middot; Scan &amp; tap</footer>
+</main>
